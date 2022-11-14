@@ -1,0 +1,19 @@
+-
+-
+/* Selecionar o nome, dia do mês e valor da parcela para clientes que estão
+inadimplentes.
+Selecionar o nome e valor total pago de clientes com pagamento completo. */
+
+
+SELECT  pessoas.Nome as NOME, day(pagamentos.DT_PAGAMENTO) as DIA_MES, contratos.VALOR_PARCELA
+ from Tabela_Pessoas as pessoas
+INNER join Tabela_Pagamentos as pagamentos
+inner join Tabela_Contratos as contratos
+ where  pessoas.INADIMPLENTE = 'S' and  pessoas.ID = pagamentos.PESSOA_ID and pessoas.CONTRATO_ID = contratos.ID 
+ order by pessoas.Nome ASC LIMIT 3;
+
+
+SELECT pessoas.Nome as NOME , (contratos.VALOR_PARCELA * contratos.PARCELAS) as VALOR_TOTAL
+from Tabela_Pessoas as pessoas
+inner join Tabela_Contratos as contratos
+where pessoas.INADIMPLENTE = 'N' and pessoas.CONTRATO_ID = contratos.ID;
